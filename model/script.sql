@@ -1,4 +1,5 @@
-CREATE SCHEMA 'maalot360db';
+CREATE SCHEMA `maalot360db` ;
+
 
 
 CREATE TABLE `maalot360db`.`todos` (
