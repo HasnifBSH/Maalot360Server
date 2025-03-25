@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-// const {promisify} = require('util')
+const {promisify} = require('util')
 require('dotenv').config();
 
 const connection = mysql.createConnection({
@@ -15,8 +15,8 @@ connection.connect((err) => {
 });
 
 
-
-// connection.query = promisify(connection.query);
+//הפיכת השאילתא ל-promise
+connection.query = promisify(connection.query);
 
 
 module.exports = connection;
