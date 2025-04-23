@@ -17,12 +17,12 @@ const getTasksByCourseId = async (id) => {
     return await Task.getTasksByCourseId(id);
 }
 
-const addTodo = async (task) => {
+const addTask = async (task) => {
     return await Task.addTask(task);
 }
 
-const updateTask = async (task) => {
-    return await Task.updateTask(task);
+const updateTask = async (id, task) => {
+    return await Task.updateTask(id, task);
 }
 
-module.exports = { getAllTasks, getTasksByUserId, getTasksByCourseId, addTodo, updateTask };
+module.exports = { getAllTasks, getTasksByUserId, getTasksByCourseId, addTask, updateTask };

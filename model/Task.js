@@ -28,9 +28,9 @@ const addTask = async (task) => {
     return task;
 }
 
-const updateTask = async (task) => {
+const updateTask = async (id, task) => {
     const queryString1 = `UPDATE tasks SET 
-        id=${task.id},
+        id=${id},
         name='${task.name}',
         desc='${task.desc}',
         lessonId='${task.lessonId}',
@@ -39,7 +39,6 @@ const updateTask = async (task) => {
         type='${task.type}'    
         WHERE id=${task.id}`;
     const result = await db.query(queryString);
-    task.id = result.insertId;
     return task;
 }
 
