@@ -3,6 +3,7 @@ const cors = require('cors');
 const todosRouter = require("./routers/todosRouter")
 const guideStepRouter = require("./routers/guideStepRouter")
 const eventRouter = require("./routers/eventRouter");
+const listItemRouter = require("./routers/listItemRouter")
 const e = require('express');
 
 
@@ -16,7 +17,8 @@ app.use(express.json());
 app.use(cors());
 app.use("/todos", todosRouter)
 app.use("/guideStep", require(guideStepRouter));
-app.use("/event", require(e));
+app.use("/event", require(eventRouter));
+app.use("/listItem", require(listItemRouter));
 
 
 // Routes
