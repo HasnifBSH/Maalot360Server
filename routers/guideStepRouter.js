@@ -1,66 +1,52 @@
-const {Router}  = require("express");
-const guideStepActions = require("../actions/guideStepAction")
+const express = require("express");
+const multer = require("multer");
+const guideStepAction = require("../actions/guideStepAction");
 
-const guideStepRouter = Router();
+const router = express.Router();
 
-guideStepRouter.get("/", async (req, res) => {
+// הגדרת multer לשמירת קבצים בתיקייה "uploads"
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/"); // תיקייה לשמירת הקבצים
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname); // שם ייחודי לקובץ
+    },
+});
+const upload = multer({ storage });
+
+// קבלת כל השלבים
+router.get("/", async (req, res) => {
     try {
-        const guideSteps = await guideStepActions.getAllGuideStep();
-        res.send(guideSteps);
+        const guideSteps = await guideStepAction.getAllGuideStep();
+        res.json(guideSteps);
+    } catch (err) {
+        res.status(500).send(err.message);
     }
-    catch (e) {
-        res.send(e);
-    }
-})
+});
 
-guideStepRouter.get("/:id", async (req, res) => {
-    const { id } = req.params;
-
+// הוספת שלב חדש עם העלאת קובץ וידאו
+router.post("/", upload.single("video"), async (req, res) => {
     try {
-        const guideStep =  await guideStepActions.getTodosByUserId(id);
-        res.send(guideStep);
+        const guideStep = req.body;
+        const videoFileName = req.file ? req.file.filename : null; // שם הקובץ שהועלה
+        const newGuideStep = await guideStepAction.addTodo(guideStep, videoFileName);
+        res.status(201).json(newGuideStep);
+    } catch (err) {
+        res.status(500).send(err.message);
     }
-    catch (e) {
-        res.send(e);
-    }
+});
 
-    } )
-guideStepRouter.post("/", async (req, res) => {
-    const guideStep = req.body;
-
+// עדכון שלב קיים עם העלאת קובץ וידאו
+router.put("/:id", upload.single("video"), async (req, res) => {
     try {
-        const newGuideStep = await guideStepActions.addTodo(guideStep);
-        res.status(200).send(newGuideStep);
+        const guideStep = req.body;
+        const videoFileName = req.file ? req.file.filename : null; // שם הקובץ שהועלה
+        const updatedGuideStep = await guideStepAction.updateGuideStep(req.params.id, guideStep, videoFileName);
+        res.json(updatedGuideStep);
+    } catch (err) {
+        res.status(500).send(err.message);
     }
-    catch (e) {
-        res.send(e);
-    }
-})
-guideStepRouter.put("/:id", async (req, res) => {
-    const { id } = req.params;
-    const guideStep = req.body;
+});
 
-    try {
-        const updatedGuideStep = await guideStepActions.updateGuideStep(id, guideStep);
-        res.status(200).send(updatedGuideStep);
-    }
-    catch (e) {
-        res.send(e);
-    }
-})
-guideStepRouter.delete("/:id", async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const deletedGuideStep = await guideStepActions.deleteGuideStep(id);
-        res.status(200).send(deletedGuideStep);
-    }
-    catch (e) {
-        res.send(e);
-    }
-})
-module.exports = guideStepRouter;      
-
-
-
-
+module.exports = router;

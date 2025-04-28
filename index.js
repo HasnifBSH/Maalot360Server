@@ -19,6 +19,7 @@ app.use("/todos", todosRouter)
 app.use("/guideStep", require(guideStepRouter));
 app.use("/event", require(eventRouter));
 app.use("/listItem", require(listItemRouter));
+app.use("/uploads", express.static("uploads"));
 
 
 // Routes
