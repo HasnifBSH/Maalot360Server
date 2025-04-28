@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const todosRouter = require("./routers/todosRouter")
+const guideStepRouter = require("./routers/guideStepRouter")
 
 
 require('dotenv').config();
@@ -11,11 +11,13 @@ const PORT = process.env.PORT || 8080;
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use("/todos", todosRouter)
+app.use("/guideStep", guideStepRouter)
 
 
 // Routes
-
+app.get("/", (req, res) => {
+    res.send("Welcome to the Maalot360 Server!");
+});
 
 
 // Start the server
