@@ -43,4 +43,4 @@ courseRouter.post("/", async (req, res) => {
 })
 
 
-module.exports = todosRouter
+module.exports = courseRouter

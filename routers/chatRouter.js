@@ -1,90 +1,32 @@
-const {Router}  = require("express");
+const { Router } = require("express");
 const chatActions = require("../actions/chatActions")
 
 const chatRouter = Router();
 
+chatRouter.get("/",async(req,res)=>{
+    return chatActions.getAllChats()
+})
 
-// רק צ'אטים פעילים
-chatRouter.get("/", async (req, res) => {
- 
+chatRouter.post("/start/:courseId", async (req, res) => {
+    const { courseId } = req.params;
     try {
-        const chats = await chatActions.getActiveChats();
-        res.send(chats);
-    }
-    catch (e) {
-        res.send(e);
+        const message = await startChat(courseId);
+        res.send({ message });
+    } catch (error) {
+        res.status(400).send({ error: error.message });
     }
 })
-// כל הצ'אטים כולל הלא פעילים 
-chatRouter.get("/all", async (req, res) => {
- 
+
+
+//  להפוך צ'אט ללא פעיל
+
+chatRouter.post("/stop/:courseId", async (req, res) => {
+    const { courseId } = req.params;
     try {
-        const chats = await chatActions.getActiveChats();
-        res.send(chats);
-    }
-    catch (e) {
-        res.send(e);
-    }
-})
-
-// לפי id
-chatRouter.get("/:id", async (req, res) => {
-
-    const { id } = req.params;
-    try {
-        const chat =  await chatActions.getChatById(id);
-        res.send(chat);
-    }
-    catch (e) {
-        res.send(e);
-    }
-})
-// של קורס ID לפי  
-chatRouter.get("/byCourse/:id", async (req, res) => {
-    const { id } = req.params;
-    try {
-        const chats = await chatActions.getChatByCourseId(id);
-        res.send(chats);
-    }
-    catch (e) {
-        res.send(e);
-    }
-})
-
-
-
-chatRouter.post("/", async (req, res) => {
-    const chat = req.body;
-
-    try {
-        const newChat = await chatActions.addChat(chat);
-        res.status(200).send(newChat);
-    }
-    catch (e) {
-        res.send(e);
-    }
-})
-
-chatRouter.put("/activate",async(req,res)=>{
-    const chat=req.body;
-    try{
-        const chat=await chatActions.activateChat(chat);
-        res.send(chat);
-    }
-    catch(e){
-        res.send(e);
-    }
-})
-
-
-chatRouter.put("/unactivate",async(req,res)=>{
-    const chat=req.body;
-    try{
-        const chat=await chatActions.unactivateChat(chat);
-        res.send(chat);
-    }
-    catch(e){
-        res.send(e);
+        const message = await stopChat(courseId);
+        res.send({ message });
+    } catch (error) {
+        res.status(400).send({ error: error.message });
     }
 })
 
