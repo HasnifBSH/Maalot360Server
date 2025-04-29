@@ -7,7 +7,7 @@ const router = express.Router();
 // הגדרת multer לשמירת קבצים בתיקייה "uploads"
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/"); // תיקייה לשמירת הקבצים
+        cb(null, "uploads/guide-videos"); // תיקייה לשמירת הקבצים
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + "-" + file.originalname); // שם ייחודי לקובץ
