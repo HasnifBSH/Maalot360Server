@@ -4,7 +4,6 @@ const todosRouter = require("./routers/todosRouter")
 const guideStepRouter = require("./routers/guideStepRouter")
 const eventRouter = require("./routers/eventRouter");
 const listItemRouter = require("./routers/listItemRouter")
-const e = require('express');
 
 
 require('dotenv').config();
