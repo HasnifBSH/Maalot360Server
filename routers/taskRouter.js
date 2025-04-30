@@ -4,7 +4,7 @@ const taskRouter = Router();
 
 taskRouter.get("/", async (req, res) => {
     try {
-        const tasks = await taskActions.getAllTasks();
+        const tasks = await taskActions.getAll();
         res.send(tasks);
     }
     catch (e) {
@@ -12,9 +12,9 @@ taskRouter.get("/", async (req, res) => {
     }
 })
 
-taskRouter.get("byUserId/:Id", async (req, res) => {
+taskRouter.get("/:id", async (req, res) => {
     try {
-        const tasks = await taskActions.getTasksByUserId(id);
+        const tasks = await taskActions.getById(req.params.id);
         res.send(tasks);
     }
     catch (e) {
@@ -22,9 +22,9 @@ taskRouter.get("byUserId/:Id", async (req, res) => {
     }
 })
 
-taskRouter.get("byCourseId/:Id", async (req, res) => {
+taskRouter.get("/byCourseId/:id", async (req, res) => {
     try {
-        const tasks = await taskActions.getTasksByCourseId(id);
+        const tasks = await taskActions.getByCourseId(req.params.id);
         res.send(tasks);
     }
     catch (e) {
@@ -34,7 +34,7 @@ taskRouter.get("byCourseId/:Id", async (req, res) => {
 
 taskRouter.post("/:id", async (req, res) => {
     try {
-        const task = await taskActions.addTask(req.body);
+        const task = await taskActions.add(req.body);
         res.send(task);
     }
     catch (e) {
@@ -44,7 +44,7 @@ taskRouter.post("/:id", async (req, res) => {
 
 taskRouter.put("/:id", async (req, res) => {
     try {
-        const task = await taskActions.updateTask(req.params.id, req.body);
+        const task = await taskActions.update(req.params.id, req.body);
         res.send(task);
     }
     catch (e) {

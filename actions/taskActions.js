@@ -1,28 +1,40 @@
 const Task = require("../model/Task");
 
-const getAllTasks = async () => {
+const getAll = async () => {
     try {
-        return await Task.getAllTasks();
+        return await Task.getAllFromDB();
     }
     catch (e) {
         throw new Error("Erro in action file");
     }
 }
 
-const getTasksByUserId = async (id) => {
-    return await Task.getTasksByUserId(id);
+const getById = async (id) => {
+    try {
+        return await Task.getByIdFromDB(id);
+    }
+    catch (e) {
+        throw new Error("Erro in action file");
+    }
 }
 
-const getTasksByCourseId = async (id) => {
-    return await Task.getTasksByCourseId(id);
+const getByCourseId = async (id) => {
+    return await Task.getByCourseIdFromDB(id);
 }
 
-const addTask = async (task) => {
-    return await Task.addTask(task);
+const add = async (task) => {
+    return await Task.addToDB(task);
 }
 
-const updateTask = async (id, task) => {
-    return await Task.updateTask(id, task);
+const update = async (id, task) => {
+    console.log(id+"----", task); 
+    return await Task.updateInDB(id, task);
 }
 
-module.exports = { getAllTasks, getTasksByUserId, getTasksByCourseId, addTask, updateTask };
+module.exports = { 
+    getAll,
+    getById,
+    getByCourseId,
+    add,
+    update
+};

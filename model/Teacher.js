@@ -1,21 +1,21 @@
 const db = require("../config/database");
 
-const getAllTeachers = async () => {
-    return await db.query("SELECT * FROM teachers");
+const getAllFromDB = async () => {
+    return await db.query("SELECT * FROM teacher");
 }
 
-const getTeachersById = async (id) => {
-    const queryString = `SELECT * FROM teachers WHERE id=${id}`
+const getByIdFromDB = async (id) => {
+    const queryString = `SELECT * FROM teacher WHERE id=${id}`
     return await db.query(queryString);
 }
 
-const getTeacherByCourseId = async (id) => {
-    const queryString = `SELECT * FROM teachers WHERE lessonId=${id}`
+const getByCourseIdFromDB = async (id) => {
+    const queryString = `SELECT * FROM teacher WHERE lessonId=${id}`
     return await db.query(queryString);
 }
 
-const addTeacher = async (teacher) => {
-    const queryString1 = `INSERT INTO teachers VALUES( 
+const addToDB = async (teacher) => {
+    const queryString1 = `INSERT INTO teacher VALUES( 
         '${teacher.fname}',
         '${teacher.ldesc}',
         '${teacher.address}',
@@ -32,8 +32,8 @@ const addTeacher = async (teacher) => {
     return teacher;
 }
 
-const updateTeacher = async (id, teacher) => {
-    const queryString1 = `UPDATE teachers SET 
+const updateInDB = async (id, teacher) => {
+    const queryString1 = `UPDATE teacher SET 
         id=${id},
         fname='${teacher.fname}',
         lname='${teacher.lname}',
@@ -50,4 +50,4 @@ const updateTeacher = async (id, teacher) => {
     return teacher;
 }
 
-module.exports = { getAllTeachers, getTeachersById, getTeacherByCourseId, addTeacher, updateTeacher };
+module.exports = { getAllFromDB, getByIdFromDB, getByCourseIdFromDB, addToDB, updateInDB };

@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const todosRouter = require("./routers/todosRouter")
+const teacherRouter = require("./routers/teacherRouter")
+const taskForStudentRouter = require("./routers/taskForStudentRouter")
+const taskRouter = require("./routers/taskRouter")
+
 
 require('dotenv').config();
 
@@ -10,9 +13,11 @@ const PORT = process.env.PORT || 8080;
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use("/todos", todosRouter)
 
-// Routes
+
+app.use("/teacher", teacherRouter)
+app.use("/task", taskRouter)
+app.use("/taskForStudent", taskForStudentRouter)
 
 
 
