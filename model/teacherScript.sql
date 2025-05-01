@@ -15,7 +15,7 @@ CREATE TABLE `maalot360db`.`teacher` (
 `fname` VARCHAR(45) NOT NULL,
 `lname` VARCHAR(45) NOT NULL,
 `address` VARCHAR(45) NOT NULL,
-`Email` VARCHAR(45) NOT NULL,
+`email` VARCHAR(45) NOT NULL,
 `phone` VARCHAR(45) NOT NULL,
 `languages` VARCHAR(500) NOT NULL,
 `payPerHour` INT NOT NULL,
