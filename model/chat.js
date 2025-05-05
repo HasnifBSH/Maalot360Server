@@ -5,13 +5,17 @@ const db = require("../config/database");
 // courseId
 // isActive
 
+//get also not active chats
 const getAllChats = async () => {
     return await db.query("SELECT * FROM chat");
 }
 
-
+const getActiveChats=async()=>{
+    const queryString = `SELECT * FROM chat  WHERE active=true`
+    return await db.query(queryString);
+}
 const getChatById = async (id) => {
-    const queryString = `SELECT * FROM chat  WHERE id=${id} and active`
+    const queryString = `SELECT * FROM chat  WHERE id=${id} and active=true`
     return await db.query(queryString);
 }
 
@@ -20,10 +24,7 @@ const getChatByCourseId = async (id) => {
     return await db.query(queryString);
 }
 
-const getActiveChats=async()=>{
-    const queryString = `SELECT * FROM chat  WHERE active=true`
-    return await db.query(queryString);
-}
+
 
 const addChat = async (chat) => {
     const queryString = `INSERT INTO chat VALUES( 
@@ -42,15 +43,16 @@ const activateChat = async (chat) => {
     const queryString = `UPDATE chat SET 
         name='${chat.name}',  
        courseId='${chat.courseId}',
-        active='${true}'
+        isActive='${true}'
         WHERE id=${chat.id}`;
     return await db.query(queryString);
 }
+
 const unactivateChat = async (chat) => {
     const queryString = `UPDATE chat SET 
         name='${chat.name}',  
        courseId='${chat.courseId}',
-        active='${false}'
+        isActive='${false}'
         WHERE id=${chat.id}`;
     return await db.query(queryString);
 }

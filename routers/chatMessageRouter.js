@@ -3,7 +3,7 @@ const chatMessageActions = require("../actions/chatMessageActions")
 
 const chatMessageRouter = Router();
 
-
+// get all
 chatMessageRouter.get("/", async (req, res) => {
  
     try {
@@ -42,7 +42,7 @@ chatMessageRouter.get("/byChat/:id", async (req, res) => {
 })
 
 
-
+// הוספה
 chatMessageRouter.post("/", async (req, res) => {
     const message = req.body;
 
@@ -54,7 +54,8 @@ chatMessageRouter.post("/", async (req, res) => {
         res.send(e);
     }
 })
-
+//  עדכון-(מחיקה)
+// deleted מבצע פעולה של עדכון שמסמנת את ההודעה כ-
 chatMessageRouter.put("/delete",async(req,res)=>{
     const message=req.body;
     try{

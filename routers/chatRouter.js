@@ -4,13 +4,13 @@ const chatActions = require("../actions/chatActions")
 const chatRouter = Router();
 
 chatRouter.get("/",async(req,res)=>{
-    return chatActions.getAllChats()
+    res.send(await getallc)
 })
 
 chatRouter.post("/start/:courseId", async (req, res) => {
     const { courseId } = req.params;
     try {
-        const message = await startChat(courseId);
+        const message = await chatActions.startChat(courseId);
         res.send({ message });
     } catch (error) {
         res.status(400).send({ error: error.message });

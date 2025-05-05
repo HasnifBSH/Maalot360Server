@@ -25,6 +25,7 @@ const addCourse = async (course) => {
         0,    
         '${course.name}',  
         '${course.desc}',
+        '${course.teacherId}',
         '${course.startDate}',
         '${course.endDate}',
         '${course.numOfHours}',
