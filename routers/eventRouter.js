@@ -1,8 +1,8 @@
-const {Router} = require("express");
+const express = require("express");
 
 const eventActions = require("../actions/eventAction")
 
-const eventRouter = Router();
+const eventRouter =express.Router();
 
 eventRouter.get("/", async (req, res) => {
     try {

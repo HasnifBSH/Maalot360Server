@@ -1,8 +1,8 @@
-const {Router}  = require("express");
+const express  = require("express");
 const listItemActions = require("../actions/listItemAction")
 
 
-const listItemRouter = Router();
+const listItemRouter = express.Router();
 
 listItemRouter.get("/", async (req, res) => {
     try {

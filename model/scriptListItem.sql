@@ -2,7 +2,7 @@
 
 CREATE SCHEMA   `maalot360db`;
 
-CREATE TABLE `maalot360db`.`ListItem` (
+CREATE TABLE `maalot360db`.`listItem` (
   `id` INT NOT NULL AUTO_INCREMENT, -- קוד אוטומטי
   `listName` VARCHAR(100) NOT NULL, -- שם הרשימה
   `itemName` VARCHAR(100) NOT NULL, -- שם הפריט
