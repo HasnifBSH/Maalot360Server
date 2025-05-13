@@ -1,4 +1,4 @@
-const PageContext = require("../model/PageContext");
+const PageContext = require("../model/PageContextModel");
 
 
 const getAllPageContext =async ()=>{
@@ -20,8 +20,9 @@ const addPageContext = async (pageContextInfo)=>{
 const deletePageContextByUserId=async (id)=>{
     return await PageContext.deletePageContextByUserId(id)
 }
-const UpdatePageContext=async (UpdatePageContextItem)=>{
-    return await PageContext.UpdatePageContext(UpdatePageContextItem)
+const UpdatePageContext=async (id,UpdatePageContextItem)=>{
+    return await PageContext.UpdatePageContext(id,UpdatePageContextItem)
 }
+
 
 module.exports = {getAllPageContext, getPageContextByUserId, addPageContext,deletePageContextByUserId,UpdatePageContext};

@@ -1,0 +1,15 @@
+
+
+    const studentStatus=req.params.body.status
+    const id=req.params.id
+
+    // עדכון הסטטוס בטבלת ה-studentStatus
+    
+     const queryString = "UPDATE `maalot360db`.`student` SET" +
+        " `status`=" + `'${!studentStatus}'` +
+        " WHERE (`id`=" + `'${id}')`;
+    console.log(queryString);
+    const result = await db.query(queryString);
+    return result;
+
+
