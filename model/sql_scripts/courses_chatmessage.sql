@@ -28,9 +28,10 @@ CREATE TABLE `chatmessage` (
   `deleted` varchar(45) DEFAULT NULL,
   `fromId` int NOT NULL,
   `createDate` datetime DEFAULT NULL,
-  `chatId` int DEFAULT NULL,
+  `chatId` tinyint DEFAULT NULL,
+  `text` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -42,4 +43,4 @@ CREATE TABLE `chatmessage` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-05 17:55:09
+-- Dump completed on 2025-05-16 13:42:31

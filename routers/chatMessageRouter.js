@@ -47,8 +47,8 @@ chatMessageRouter.post("/", async (req, res) => {
     const message = req.body;
 
     try {
-        const newMessage = await chatMessageActions.addChatMessage(newMessage);
-        res.status(200).send(newChat);
+        const newMessage = await chatMessageActions.addChatMessage(message);
+        res.status(200).send(newMessage);
     }
     catch (e) {
         res.send(e);
@@ -56,10 +56,10 @@ chatMessageRouter.post("/", async (req, res) => {
 })
 //  עדכון-(מחיקה)
 // deleted מבצע פעולה של עדכון שמסמנת את ההודעה כ-
-chatMessageRouter.put("/delete",async(req,res)=>{
-    const message=req.body;
+chatMessageRouter.put("/delete/:id",async(req,res)=>{
+    const {id}=req.params;
     try{
-        const chat=await chatMessageActions.deleteMessage(message);
+        const chat=await chatMessageActions.deleteMessage(id);
         res.send(chat);
     }
     catch(e){

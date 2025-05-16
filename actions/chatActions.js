@@ -3,16 +3,16 @@ const http = require("http")
 const { Server } = require("socket.io");
 const { addChatMessage } = require("../actions/chatMessageActions");
 
-const courseServers = {}
+const chatServers = {}
 
-const startChat = async (courseId) => {
-    if (courseServers[courseId]) {
-        return res.status(400).send("chat already started")
+const startChat = async (chatId) => {
+    if (chatServers[chatId]) {
+        throw new Error("chat already started");
     }
     const app = require("express")();
     const server = http.createServer(app);
     const io = new Server(server);
-    chatActions.activateChat(courseId)
+    chat.activateChat(chatId)
 
     io.on('connection', async (socket) => {
         console.log("user connected to chat. Socket id: " + socket.id)
@@ -33,75 +33,90 @@ const startChat = async (courseId) => {
         })
     });
 
-    const PORT = 8080 + parseInt(courseId); // unique port for each chat
+    const PORT = 8080 + parseInt(chatId); // unique port for each chat
     server.listen(PORT, () => {
-        console.log(`Chat server for course ${courseId} is running on http://localhost:${PORT}`);
+        console.log(`Chat id ${chatId} is running on http://localhost:${PORT}`);
     });
 
-    courseServers[courseId] = { server, io };
-    res.send({ message: `Chat server started for course ${courseId} on port ${PORT}` });
+    chatServers[chatId] = { server, io };
+    return { message: `Chat server started ,id: ${chatId} on port ${PORT}` };
 
 }
-const stopChat = async (courseId) => {
-    if (!courseServers[courseId]) {
-        return res.status(400).send({ message: "No chat server running for this course." });
+const stopChat = async (chatId) => {
+    if (!chatServers[chatId]) {
+        return { message: "No chat server running with this id" };
     }
-    courseServers[courseId].io.close();
-    courseServers[courseId].server.close(() => {
-        chatActions.unactivateChat(courseId);
-        console.log(`Chat server for course ${courseId} stopped.`);
+    chatServers[chatId].io.close();
+    chatServers[chatId].server.close(() => {
+        chat.unactivateChat(chatId);
+        console.log(`Chat  ${chatId} stopped.`);
     });
 
-    delete courseServers[courseId];
-    res.send({ message: `Chat server stopped for course ${courseId}` });
+    delete chatServers[chatId];
+    return { message: `Chat  stopped ,id: ${chatId}` };
 
 }
-
+const getAllChats = async () => {
+    try {
+        return await chat.getAllChats();
+    }
+    catch (e) {
+        throw e;
+    }
+}
 
 const getChatById = async (id) => {
     try {
         return await chat.getChatById(id);
     }
     catch (e) {
-        throw new Error("error in action file")
+        throw e;
     }
 }
 
 const getActiveChats = async () => {
     try {
-        return await chat.getActiveChats(id);
+        return await chat.getActiveChats();
     }
     catch (e) {
-        throw new Error("error in action file")
+        throw e;
     }
 }
-const getChatByCourseId = async (courseId) => {
+
+const getChatByCourseId = async (id) => {
     try {
         return await chat.getChatByCourseId(id);
     }
     catch (e) {
-        throw new Error("error in action file")
+        throw e;
     }
 }
-
-const unactivateChat = async (chat) => {
+const addChat = async (c) => {
     try {
-        return await chat.unactivateChat(id);
+        return await chat.addChat(c);
     }
     catch (e) {
-        throw new Error("error in action file")
+        throw (e);
     }
 }
-const activateChat = async (courseId) => {
-    try {
-        return await chat.activateChat(id);
-    }
-    catch (e) {
-        throw new Error("error in action file")
-    }
-}
+// const unactivateChat = async (id) => {
+//     try {
+//         return await chat.unactivateChat(id);
+//     }
+//     catch (e) {
+//         throw new Error("error in action file")
+//     }
+// }
+// const activateChat = async (id) => {
+//     try {
+//         return await chat.activateChat(id);
+//     }
+//     catch (e) {
+//         throw new Error("error in action file")
+//     }
+// }
 
 
-module.exports = { startChat, stopChat, getActiveChats, getChatByCourseId, getChatById, getActiveChats, activateChat, unactivateChat };
+module.exports = { getAllChats, startChat, stopChat, getActiveChats, getChatByCourseId, getChatById, getActiveChats, addChat };
 
 

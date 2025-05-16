@@ -6,58 +6,59 @@ const getAllCourses = async () => {
         return await course.getAllCourses();
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 
 const getCourseById = async (id) => {
     try {
-        return await course.getCourseById();
+        return await course.getCourseById(id);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 
 const getCoursesByDate = async (date) => {
     try {
-        return await course.getCoursesByDate();
+        return await course.getCoursesByDate(date);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 
 const getCoursesByTeacherId = async (id) => {
     try {
-        return await course.getCoursesByTeacherId();
+        return await course.getCoursesByTeacherId(id);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
-const addCourse = async (course) => {
+const addCourse = async (c) => {
     try {
-        return await course.addCourse();
+        return await course.addCourse(c);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+
+        throw e;
     }
 }
-const updateCourse = async (course) => {
+const updateCourse = async (c,id) => {
     try {
-        return await course.updateCourse();
+        return await course.updateCourse(c,id);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 const deleteCourse = async (id) => {
     try {
-        return await course.deleteCourse();
+        return await course.deleteCourse(id);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 

@@ -1,4 +1,4 @@
-const {Router}  = require("express");
+const { Router } = require("express");
 const courseActions = require("../actions/courseActions")
 
 const courseRouter = Router();
@@ -6,7 +6,7 @@ const courseRouter = Router();
 
 
 courseRouter.get("/", async (req, res) => {
- 
+
     try {
         const course = await courseActions.getAllCourses();
         res.send(course);
@@ -20,7 +20,7 @@ courseRouter.get("/:id", async (req, res) => {
 
     const { id } = req.params;
     try {
-        const course =  await courseActions.getCourseById(id);
+        const course = await courseActions.getCourseById(id);
         res.send(course);
     }
     catch (e) {
@@ -32,7 +32,7 @@ courseRouter.get("/byTeacherId/:id", async (req, res) => {
 
     const { id } = req.params;
     try {
-        const courses =  await courseActions.getCoursesByTeacherId(id);
+        const courses = await courseActions.getCoursesByTeacherId(id);
         res.send(courses);
     }
     catch (e) {
@@ -40,11 +40,12 @@ courseRouter.get("/byTeacherId/:id", async (req, res) => {
     }
 })
 //  שליפת כל הקורסים הפעילים בתאריך שמתקבל
+//2023-10-04 example date
 courseRouter.get("/byDate/:date", async (req, res) => {
 
     const { date } = req.params;
     try {
-        const courses =  await courseActions.getCoursesByDate(date);
+        const courses = await courseActions.getCoursesByDate(date);
         res.send(courses);
     }
     catch (e) {
@@ -58,6 +59,7 @@ courseRouter.post("/", async (req, res) => {
     const course = req.body;
 
     try {
+        console.log(course);
         const newCourse = await courseActions.addCourse(course);
         res.status(200).send(newCourse);
     }
@@ -66,9 +68,23 @@ courseRouter.post("/", async (req, res) => {
     }
 })
 
-courseRouter.delete("/:id", async (req, res) => {
-    const id = req.params;
 
+
+courseRouter.put("/:id", async (req, res) => {
+    const course = req.body;
+    const { id } = req.params;
+    try {
+        const result = await courseActions.updateCourse(course, id);
+        res.status(200).send(result);
+    }
+    catch (e) {
+        res.send(e);
+
+    }
+});
+
+courseRouter.delete("/:id", async (req, res) => {
+    const { id } = req.params;
     try {
         const result = await courseActions.deleteCourse(id);
         res.status(200).send(result);

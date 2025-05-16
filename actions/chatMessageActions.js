@@ -6,16 +6,7 @@ const getAllChatMessage = async () => {
         return await chatMessages.getAllChatMessage();
     }
     catch (e) {
-        throw new Error("Erro in action file");
-    }
-}
-
-const getChatMessageByChatId = async (chatId) => {
-    try {
-        return await chatMessages.getChatMessageByChatId(chatId);
-    }
-    catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 
@@ -24,9 +15,20 @@ const getChatMessageById = async (id) => {
         return await chatMessages.getChatMessageById(id);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
+
+const getChatMessageByChatId = async (chatId) => {
+    try {
+        return await chatMessages.getChatMessageByChatId(chatId);
+    }
+    catch (e) {
+        throw e;
+    }
+}
+
+
 
 
 const addChatMessage = async (newChatMessage) => {
@@ -34,16 +36,17 @@ const addChatMessage = async (newChatMessage) => {
         return await chatMessages.addChatMessage(newChatMessage);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 
-const deleteMessage = async (chat) => {
+const deleteMessage = async (id) => {
     try {
-        return await chatMessages.deleteMessage(chat);
+       
+        return await chatMessages.deleteMessage(id);
     }
     catch (e) {
-        throw new Error("Erro in action file");
+        throw e;
     }
 }
 

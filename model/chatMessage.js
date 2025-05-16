@@ -8,28 +8,28 @@ const db = require("../config/database");
 
 
 const getAllChatMessage = async () => {
-    return await db.query("SELECT * FROM chatMassage WHERE deleted=false");
+    return await db.query("SELECT * FROM chatmessage WHERE deleted=false");
 }
 const getChatMessageById = async (id) => {
-    const queryString = `SELECT * FROM chatMassage  WHERE id=${id} and deleted=false`
+    const queryString = `SELECT * FROM chatmessage  WHERE id=${id} and deleted=false`
     return await db.query(queryString);
 }
 
 const getChatMessageByChatId = async (chatId) => {
-    const queryString = `SELECT * FROM chatMassage  WHERE chatId=${chatId} and deleted=false`
+    const queryString = `SELECT * FROM chatmessage  WHERE chatId=${chatId} and deleted=false`
     return await db.query(queryString);
 }
 
 
 const addChatMessage = async (message) => {
-    const queryString = `INSERT INTO chatMassage VALUES( 
+    const queryString = `INSERT INTO chatmessage VALUES( 
         0,    
         '${message.from}',
-          false,
-        '${message.fromId}',
+          0,
+        ${message.fromId},
         '${message.createDate}',
-        '${message.chatId}'
-        
+        ${message.chatId},
+        '${message.text}'        
         )`;
 
     const result = await db.query(queryString);
@@ -37,14 +37,10 @@ const addChatMessage = async (message) => {
     return message;
 }
 //update
-const deleteMessage = async (message) => {
+const deleteMessage = async (id) => {
     const queryString = `UPDATE chatMessage SET 
-        from='${message.from}',  
-        fromId='${message.fromId}',
-        date='${message.date}',
-        chatId='${message.chatId}',
-        deleted=true
-        WHERE id=${message.id}`;
+        deleted=1
+        WHERE id=${id}`;
     return await db.query(queryString);
 }
 
